@@ -28,7 +28,7 @@ const BuildBar = ({
   const [isGameModalOpen, setIsGameModalOpen] = useState(false);
   const [discountAttemptedForBuild, setDiscountAttemptedForBuild] = useState(false);
   const reducedMotion = prefersReducedMotion();
-  const { discount, clearDiscount } = useDiscount();
+  const { discount } = useDiscount();
 
   const isComplete = !!(selectedCut && selectedSeasoning && selectedSauce);
   const completedCount = [selectedCut, selectedSeasoning, selectedSauce].filter(Boolean).length;

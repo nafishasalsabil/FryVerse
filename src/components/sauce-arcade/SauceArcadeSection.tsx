@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useReveal } from '@/animations/useReveal';
-import { sauces, getFeaturedSauce, getSaucesByMood } from '@/data/sauces';
-import { Sauce } from '@/data/sauces';
+import { getFeaturedSauce, getSaucesByMood } from '@/data/sauces';
+import type { Sauce } from '@/data/sauces';
 import FeaturedSauceCard from './FeaturedSauceCard';
 import SauceMarquee from './SauceMarquee';
 import SauceMoodFilter from './SauceMoodFilter';

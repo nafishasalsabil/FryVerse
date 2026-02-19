@@ -179,7 +179,7 @@ const CatchTheFriesModal = ({ isOpen, onClose, onDiscountApplied }: CatchTheFrie
 
         {/* Game or Result */}
         {!showResult ? (
-          <CatchTheFriesGame onGameEnd={handleGameEnd} onClose={handleClose} />
+          <CatchTheFriesGame onGameEnd={handleGameEnd} />
         ) : (
           <div className="text-center py-4 sm:py-6 md:py-8">
             <div className="mb-4 sm:mb-6">
@@ -216,9 +216,9 @@ const CatchTheFriesModal = ({ isOpen, onClose, onDiscountApplied }: CatchTheFrie
               </button>
             </div>
 
-            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-3 sm:mt-4">
+            {/* <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-3 sm:mt-4">
               One try per build
-            </p>
+            </p> */}
           </div>
         )}
       </div>

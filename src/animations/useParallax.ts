@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { gsap, ScrollTrigger } from './gsap.config';
+import { gsap } from './gsap.config';
 import { prefersReducedMotion } from '@/utils/helpers';
 
 interface UseParallaxOptions {

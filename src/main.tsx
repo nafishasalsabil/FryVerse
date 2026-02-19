@@ -24,13 +24,22 @@ ScrollTrigger.config({
 })
 
 // Sync Lenis with ScrollTrigger
-let rafId: number;
+let rafId: number | null = null;
 function raf(time: number) {
   lenis.raf(time)
   rafId = requestAnimationFrame(raf)
 }
 
 rafId = requestAnimationFrame(raf)
+
+// Cleanup on page unload
+if (typeof window !== 'undefined') {
+  window.addEventListener('beforeunload', () => {
+    if (rafId !== null) {
+      cancelAnimationFrame(rafId)
+    }
+  })
+}
 
 // Register ScrollTrigger with Lenis
 ScrollTrigger.scrollerProxy(document.body, {
@@ -53,11 +62,16 @@ ScrollTrigger.scrollerProxy(document.body, {
 
 // Throttle ScrollTrigger updates for better performance
 let ticking = false
+let lastUpdate = 0
+const UPDATE_INTERVAL = 16 // ~60fps
+
 lenis.on('scroll', () => {
-  if (!ticking) {
+  const now = performance.now()
+  if (!ticking && (now - lastUpdate) >= UPDATE_INTERVAL) {
     requestAnimationFrame(() => {
       ScrollTrigger.update()
       ticking = false
+      lastUpdate = now
     })
     ticking = true
   }

@@ -7,7 +7,6 @@ import chilliImg from '@/assets/chilli.png';
 
 interface CatchTheFriesGameProps {
   onGameEnd: (friesCaught: number) => void;
-  onClose: () => void;
 }
 
 interface Fry {
@@ -48,7 +47,7 @@ const GAME_HEIGHT_TABLET = 350;
 const CHILLI_CHANCE = 0.15; // 15% chance for chilli
 const MAX_CHILLIS = 3;
 
-const CatchTheFriesGame = ({ onGameEnd, onClose }: CatchTheFriesGameProps) => {
+const CatchTheFriesGame = ({ onGameEnd }: CatchTheFriesGameProps) => {
   const gameContainerRef = useRef<HTMLDivElement>(null);
   const basketRef = useRef<HTMLDivElement>(null);
   const [gameState, setGameState] = useState<'waiting' | 'countdown' | 'playing' | 'finished'>('waiting');
@@ -56,7 +55,7 @@ const CatchTheFriesGame = ({ onGameEnd, onClose }: CatchTheFriesGameProps) => {
   const [timeLeft, setTimeLeft] = useState(GAME_DURATION);
   const [score, setScore] = useState(0);
   const scoreRef = useRef(0); // Use ref to avoid dependency issues
-  const [chillisCaught, setChillisCaught] = useState(0);
+  const [, setChillisCaught] = useState(0);
   const [showFryRush, setShowFryRush] = useState(false);
   const friesRef = useRef<Fry[]>([]);
   const feedbacksRef = useRef<Feedback[]>([]);
@@ -64,7 +63,7 @@ const CatchTheFriesGame = ({ onGameEnd, onClose }: CatchTheFriesGameProps) => {
   const countdownRef = useRef<HTMLDivElement>(null);
   const [gameDimensions, setGameDimensions] = useState({ width: GAME_WIDTH_DESKTOP, height: GAME_HEIGHT_DESKTOP });
   const [isMobile, setIsMobile] = useState(false);
-  const [isTablet, setIsTablet] = useState(false);
+  const [, setIsTablet] = useState(false);
   const basketXRef = useRef<number>(GAME_WIDTH_DESKTOP / 2 - BASKET_WIDTH / 2);
   const lastSpawnTimeRef = useRef<number>(0);
   const gameStartTimeRef = useRef<number>(0);
@@ -295,20 +294,16 @@ const CatchTheFriesGame = ({ onGameEnd, onClose }: CatchTheFriesGameProps) => {
     
     // Difficulty ramp
     let baseSpeed = 2;
-    let spawnRate = 0.6;
     
     if (elapsed < 5) {
       // First 5s: easy
       baseSpeed = isMobile ? 1.2 : 1.5;
-      spawnRate = 0.8;
     } else if (elapsed < 10) {
       // Middle 10s: normal
       baseSpeed = isMobile ? 1.8 : 2;
-      spawnRate = 0.6;
     } else {
       // Last 5s: fast (Fry Rush!)
       baseSpeed = isMobile ? 2.2 : 2.5;
-      spawnRate = 0.4;
     }
     
     const fryW = isChilli ? (isMobile ? CHILLI_WIDTH_MOBILE : CHILLI_WIDTH) : (isMobile ? FRY_WIDTH_MOBILE : FRY_WIDTH);
@@ -447,12 +442,8 @@ const CatchTheFriesGame = ({ onGameEnd, onClose }: CatchTheFriesGameProps) => {
         // Check if caught
         const basketH = isMobile ? BASKET_HEIGHT_MOBILE : BASKET_HEIGHT;
         const basketW = isMobile ? BASKET_WIDTH_MOBILE : BASKET_WIDTH;
-        const fryW = fry.type === 'chilli' 
-          ? (isMobile ? CHILLI_WIDTH_MOBILE : CHILLI_WIDTH)
-          : (isMobile ? FRY_WIDTH_MOBILE : FRY_WIDTH);
         
         if (fry.y > gameDimensions.height - basketH - 30 && checkCollision(fry)) {
-          const fryCenterX = fry.x + fryW / 2;
           const basketCenterX = basketXRef.current + basketW / 2;
           
           if (fry.type === 'chilli') {

@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { useParallax } from '@/animations/useParallax';
 import { gsap } from '@/animations/gsap.config';
+import lottieFile from '@/assets/French Fries/animations/12345.json?url';
 
 const Hero = () => {
   const heroRef = useRef<HTMLElement>(null);
@@ -160,10 +161,10 @@ const Hero = () => {
               {shouldAutoplay && (
                 <DotLottieReact
                   key="fries-lottie"
-                  src="/src/assets/French Fries/animations/12345.json"
+                  src={lottieFile}
                   loop={false}
                   autoplay={true}
-                  style={{ width: '100%', height: 'auto', maxWidth: '800px' }}
+                  style={{ width: '100%', height: 'auto', maxWidth: '800px', minHeight: '200px' }}
                 />
               )}
             </div>

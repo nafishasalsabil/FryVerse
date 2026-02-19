@@ -1,12 +1,12 @@
 import { forwardRef, useImperativeHandle } from 'react';
-import { useRouteTransition, RouteTransitionHandle } from '@/hooks/useRouteTransition';
+import { useRouteTransition } from '@/hooks/useRouteTransition';
 
 export interface TransitionOverlayHandle {
   startTransition: (onComplete?: () => void) => void;
   endTransition: (onComplete?: () => void) => void;
 }
 
-const TransitionOverlay = forwardRef<TransitionOverlayHandle>((props, ref) => {
+const TransitionOverlay = forwardRef<TransitionOverlayHandle>((_props, ref) => {
   const { overlayRef, startTransition, endTransition } = useRouteTransition();
 
   useImperativeHandle(ref, () => ({

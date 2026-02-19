@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { gsap } from '@/animations/gsap.config';
 import { prefersReducedMotion } from '@/utils/helpers';
+import lottieFile from '@/assets/French Fries/animations/12345.json?url';
 import { Fry } from '@/data/fries';
 import { formatPrice } from '@/utils/helpers';
 import { useCart } from '@/contexts/CartContext';
@@ -209,10 +210,10 @@ const FryHero = ({ fry, onBackToMenu }: FryHeroProps) => {
                 {shouldAutoplay && (
                   <DotLottieReact
                     key="fry-hero-lottie"
-                    src="/src/assets/French Fries/animations/12345.json"
+                    src={lottieFile}
                     loop={false}
                     autoplay={true}
-                    style={{ width: '100%', height: 'auto' }}
+                    style={{ width: '100%', height: 'auto', minHeight: '200px' }}
                   />
                 )}
               </div>

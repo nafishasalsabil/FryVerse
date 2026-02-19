@@ -58,6 +58,7 @@ const FryDetail = () => {
 
   const handleAddToBox = (sauceName: string) => {
     // Navigate to build box and preselect: current fry's cut + sauce
+    if (!fry) return;
     const preselectedCut = fry.cutType;
     const preselectedSauce = sauceName;
 
@@ -106,13 +107,14 @@ const FryDetail = () => {
     return sauces.find((s) => s.name.toLowerCase() === name.toLowerCase());
   };
 
-  const pairingSauces = fry.bestSauces
+  const pairingSauces = (fry?.bestSauces || [])
     .map((sauceName) => getSauceByName(sauceName))
     .filter((sauce): sauce is NonNullable<typeof sauce> => sauce !== undefined)
     .slice(0, 3); // Limit to 3 pairings
 
   // Get a fun fact for the origin story
   const getFunFact = () => {
+    if (!fry) return 'Did you know? Fries are one of the world\'s most beloved snacks!';
     const facts: Record<string, string> = {
       'Belgium': 'Did you know? Belgians eat more fries per capita than any other country!',
       'United States': 'Did you know? Americans consume over 4.5 billion pounds of fries annually!',
@@ -172,13 +174,13 @@ const FryDetail = () => {
                   <PairingCard
                     key={sauce.id}
                     sauce={sauce}
-                    reason={getPairingReason(fry, sauce)}
+                    reason={getPairingReason(fry!, sauce)}
                     onAddToBox={handleAddToBox}
                   />
                 ))
               ) : (
                 // Fallback if sauces not found
-                fry.bestSauces.slice(0, 3).map((sauceName) => {
+                (fry?.bestSauces || []).slice(0, 3).map((sauceName) => {
                   const defaultSauce: typeof sauces[0] = {
                     id: sauceName.toLowerCase().replace(/\s+/g, '-'),
                     name: sauceName,
@@ -191,7 +193,7 @@ const FryDetail = () => {
                     <PairingCard
                       key={sauceName}
                       sauce={defaultSauce}
-                      reason={`Perfect complement for ${fry.name}`}
+                      reason={`Perfect complement for ${fry?.name || 'this fry'}`}
                       onAddToBox={handleAddToBox}
                     />
                   );

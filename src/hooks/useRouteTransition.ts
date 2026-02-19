@@ -1,4 +1,4 @@
-import { useRef, useImperativeHandle, forwardRef } from 'react';
+import { useRef } from 'react';
 import { gsap } from '@/animations/gsap.config';
 import { TRANSITION_DURATION } from '@/utils/constants';
 

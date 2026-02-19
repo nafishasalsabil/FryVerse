@@ -2,7 +2,7 @@ import { Fry } from '@/data/fries';
 import { Sauce } from '@/data/sauces';
 
 // Generate pairing reasons based on fry and sauce characteristics
-export const getPairingReason = (fry: Fry, sauce: Sauce): string => {
+export const getPairingReason = (_fry: Fry, sauce: Sauce): string => {
   const reasons: Record<string, string[]> = {
     'Ketchup': [
       'Sweet acidity cuts the crunch',
